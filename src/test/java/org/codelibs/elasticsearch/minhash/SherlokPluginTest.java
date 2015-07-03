@@ -19,7 +19,7 @@ import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.get.GetField;
 import org.junit.Assert;
 
-public class MinHashPluginTest extends TestCase {
+public class SherlokPluginTest extends TestCase {
 
     private ElasticsearchClusterRunner runner;
 
@@ -55,12 +55,12 @@ public class MinHashPluginTest extends TestCase {
         {
             // create an index
             final String indexSettings = "{\"index\":{\"analysis\":{\"analyzer\":{"
-                    + "\"minhash_analyzer1\":{\"type\":\"custom\",\"tokenizer\":\"standard\",\"filter\":[\"minhash\"]},"
+                    + "\"minhash_analyzer1\":{\"type\":\"custom\",\"tokenizer\":\"standard\",\"filter\":[\"sherlok\"]},"
                     + "\"minhash_analyzer2\":{\"type\":\"custom\",\"tokenizer\":\"standard\",\"filter\":[\"my_minhashfilter1\"]},"
                     + "\"minhash_analyzer3\":{\"type\":\"custom\",\"tokenizer\":\"standard\",\"filter\":[\"my_minhashfilter2\"]}"
                     + "},\"filter\":{"
-                    + "\"my_minhashfilter1\":{\"type\":\"minhash\",\"seed\":1000},"
-                    + "\"my_minhashfilter2\":{\"type\":\"minhash\",\"bit\":2,\"size\":32,\"seed\":1000}"
+                    + "\"my_minhashfilter1\":{\"type\":\"sherlok\",\"seed\":1000},"
+                    + "\"my_minhashfilter2\":{\"type\":\"sherlok\",\"bit\":2,\"size\":32,\"seed\":1000}"
                     + "}}}}";
             runner.createIndex(index, ImmutableSettings.builder()
                     .loadFromSource(indexSettings).build());
@@ -94,20 +94,20 @@ public class MinHashPluginTest extends TestCase {
 
                     // minhash
                     .startObject("minhash_value1")//
-                    .field("type", "minhash")//
+                    .field("type", "sherlok")//
                     .field("minhash_analyzer", "minhash_analyzer1")//
                     .field("copy_bits_to", "bits")//
                     .endObject()//
 
                     // minhash
                     .startObject("minhash_value2")//
-                    .field("type", "minhash")//
+                    .field("type", "sherlok")//
                     .field("minhash_analyzer", "minhash_analyzer2")//
                     .endObject()//
 
                     // minhash
                     .startObject("minhash_value3")//
-                    .field("type", "minhash")//
+                    .field("type", "sherlok")//
                     .field("minhash_analyzer", "minhash_analyzer3")//
                     .endObject()//
 

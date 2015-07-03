@@ -9,17 +9,17 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.index.analysis.TokenFilterFactory;
 import org.elasticsearch.indices.analysis.IndicesAnalysisService;
 
-public class MinHashIndicesAnalysis extends AbstractComponent {
+public class SherlokIndicesAnalysis extends AbstractComponent {
     @Inject
-    public MinHashIndicesAnalysis(final Settings settings,
+    public SherlokIndicesAnalysis(final Settings settings,
             final IndicesAnalysisService indicesAnalysisService) {
         super(settings);
 
-        indicesAnalysisService.tokenFilterFactories().put("minhash",
+        indicesAnalysisService.tokenFilterFactories().put("sherlok",
                 new MinHashTokenFilterFactoryFactory(new TokenFilterFactory() {
                     @Override
                     public String name() {
-                        return "minhash";
+                        return "sherlok";
                     }
 
                     @Override

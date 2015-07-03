@@ -12,14 +12,14 @@ import org.elasticsearch.index.settings.IndexSettings;
 
 import com.google.common.hash.HashFunction;
 
-public class MinHashTokenFilterFactory extends AbstractTokenFilterFactory {
+public class SherlokTokenFilterFactory extends AbstractTokenFilterFactory {
 
     private int hashBit;
 
     private HashFunction[] hashFunctions;
 
     @Inject
-    public MinHashTokenFilterFactory(final Index index,
+    public SherlokTokenFilterFactory(final Index index,
             @IndexSettings final Settings indexSettings,
             @Assisted final String name, @Assisted final Settings settings) {
         super(index, indexSettings, name, settings);

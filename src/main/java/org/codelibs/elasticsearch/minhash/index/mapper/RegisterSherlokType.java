@@ -7,16 +7,15 @@ import org.elasticsearch.index.Index;
 import org.elasticsearch.index.mapper.MapperService;
 import org.elasticsearch.index.settings.IndexSettings;
 
-public class RegisterMinHashType extends AbstractIndexComponent {
+public class RegisterSherlokType extends AbstractIndexComponent {
 
     @Inject
-    public RegisterMinHashType(final Index index,
+    public RegisterSherlokType(final Index index,
             @IndexSettings final Settings indexSettings,
             final MapperService mapperService) {
         super(index, indexSettings);
 
-        mapperService.documentMapperParser().putTypeParser("minhash",
-                new MinHashFieldMapper.TypeParser());
+        mapperService.documentMapperParser().putTypeParser("sherlok",
+                new SherlokFieldMapper.TypeParser());
     }
-
 }

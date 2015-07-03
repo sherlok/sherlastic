@@ -45,12 +45,12 @@ import org.elasticsearch.index.mapper.core.AbstractFieldMapper;
 import org.elasticsearch.index.mapper.core.NumberFieldMapper;
 import org.elasticsearch.index.mapper.object.ObjectMapper;
 
-public class MinHashFieldMapper extends AbstractFieldMapper<BytesReference> {
+public class SherlokFieldMapper extends AbstractFieldMapper<BytesReference> {
 
-    public static final String CONTENT_TYPE = "minhash";
+    public static final String CONTENT_TYPE = "sherlok";
 
-    public static MinHashFieldMapper.Builder minhashField(final String name) {
-        return new MinHashFieldMapper.Builder(name);
+    public static SherlokFieldMapper.Builder minhashField(final String name) {
+        return new SherlokFieldMapper.Builder(name);
     }
 
     public static class Defaults extends AbstractFieldMapper.Defaults {
@@ -67,7 +67,7 @@ public class MinHashFieldMapper extends AbstractFieldMapper<BytesReference> {
     }
 
     public static class Builder extends
-            AbstractFieldMapper.Builder<Builder, MinHashFieldMapper> {
+            AbstractFieldMapper.Builder<Builder, SherlokFieldMapper> {
 
         private Boolean compress = null;
 
@@ -93,8 +93,8 @@ public class MinHashFieldMapper extends AbstractFieldMapper<BytesReference> {
         }
 
         @Override
-        public MinHashFieldMapper build(final BuilderContext context) {
-            return new MinHashFieldMapper(buildNames(context), fieldType,
+        public SherlokFieldMapper build(final BuilderContext context) {
+            return new SherlokFieldMapper(buildNames(context), fieldType,
                     docValues, compress, compressThreshold, postingsProvider,
                     docValuesProvider, fieldDataSettings,
                     multiFieldsBuilder.build(this, context), copyTo,
@@ -117,7 +117,7 @@ public class MinHashFieldMapper extends AbstractFieldMapper<BytesReference> {
                 final Map<String, Object> node,
                 final ParserContext parserContext)
                 throws MapperParsingException {
-            final MinHashFieldMapper.Builder builder = minhashField(name);
+            final SherlokFieldMapper.Builder builder = minhashField(name);
             parseField(builder, name, node, parserContext);
             for (final Map.Entry<String, Object> entry : node.entrySet()) {
                 final String fieldName = Strings.toUnderscoreCase(entry
@@ -159,7 +159,7 @@ public class MinHashFieldMapper extends AbstractFieldMapper<BytesReference> {
 
     private String copyBitsTo;
 
-    protected MinHashFieldMapper(final Names names, final FieldType fieldType,
+    protected SherlokFieldMapper(final Names names, final FieldType fieldType,
             final Boolean docValues, final Boolean compress,
             final long compressThreshold,
             final PostingsFormatProvider postingsProvider,
@@ -313,7 +313,7 @@ public class MinHashFieldMapper extends AbstractFieldMapper<BytesReference> {
             return;
         }
 
-        final MinHashFieldMapper sourceMergeWith = (MinHashFieldMapper) mergeWith;
+        final SherlokFieldMapper sourceMergeWith = (SherlokFieldMapper) mergeWith;
         if (!mergeContext.mergeFlags().simulate()) {
             if (sourceMergeWith.compress != null) {
                 compress = sourceMergeWith.compress;
