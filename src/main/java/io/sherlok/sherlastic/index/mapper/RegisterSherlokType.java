@@ -1,4 +1,4 @@
-package org.codelibs.elasticsearch.minhash.index.mapper;
+package io.sherlok.sherlastic.index.mapper;
 
 import org.elasticsearch.common.inject.Inject;
 import org.elasticsearch.common.settings.Settings;

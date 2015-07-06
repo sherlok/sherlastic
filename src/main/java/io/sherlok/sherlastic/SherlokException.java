@@ -1,4 +1,4 @@
-package org.codelibs.elasticsearch.minhash;
+package io.sherlok.sherlastic;
 
 public class SherlokException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package org.codelibs.elasticsearch.minhash.index.mapper;
+package io.sherlok.sherlastic.index.mapper;
 
 import static org.elasticsearch.common.xcontent.support.XContentMapValues.nodeBooleanValue;
 import static org.elasticsearch.index.mapper.core.TypeParsers.parseField;

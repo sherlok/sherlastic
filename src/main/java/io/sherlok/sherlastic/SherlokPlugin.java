@@ -1,12 +1,12 @@
-package org.codelibs.elasticsearch.minhash;
+package io.sherlok.sherlastic;
 
 import static org.elasticsearch.common.collect.Lists.newArrayList;
+import io.sherlok.sherlastic.index.analysis.SherlokTokenFilterFactory;
+import io.sherlok.sherlastic.module.SherlokAnalysisModule;
+import io.sherlok.sherlastic.module.SherlokIndexModule;
 
 import java.util.Collection;
 
-import org.codelibs.elasticsearch.minhash.index.analysis.SherlokTokenFilterFactory;
-import org.codelibs.elasticsearch.minhash.module.SherlokAnalysisModule;
-import org.codelibs.elasticsearch.minhash.module.SherlokIndexModule;
 import org.elasticsearch.common.collect.ImmutableList;
 import org.elasticsearch.common.inject.Module;
 import org.elasticsearch.index.analysis.AnalysisModule;

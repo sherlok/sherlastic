@@ -1,4 +1,4 @@
-package org.codelibs.elasticsearch.minhash;
+package io.sherlok.sherlastic;
 
 import static org.codelibs.elasticsearch.runner.ElasticsearchClusterRunner.newConfigs;
 

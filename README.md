@@ -37,7 +37,12 @@ First, you need to add a sherlok analyzer when creating your index:
             "sherlok_analyzer":{
               "type":"custom",
               "tokenizer":"standard",
-              "filter":["sherlok"]
+              "filter":["sherlok"],
+              "pipeline": "02.ruta.annotate.countries",
+              "version" : "1",
+              "mapping" : {
+                "org.sherlok.ruta.Country:iso" : "country_iso"
+              }
             }
           }
         }
@@ -48,7 +53,7 @@ Feel free to change `tokenizer`, `char_filter` and `filter` settings, but `sherl
 
 ### Add Sherlok field
 
-Put minhash field into an index mapipng:
+Put sherlok field into an index mapipng:
 
     $ curl -XPUT "localhost:9200/my_index/my_type/_mapping" -d '{
       "my_type":{
@@ -74,7 +79,7 @@ Add the following document:
       "message":"Fess is Java based full text search server provided as OSS product."
     }'
 
-The minhash value is calculated automatically when adding the document.
+The sherlok value is calculated automatically when adding the document.
 You can check it as below:
 
     $ curl -XGET "localhost:9200/my_index/my_type/1?pretty&fields=sherlok_value,_source" 

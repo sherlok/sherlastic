@@ -1,4 +1,4 @@
-package org.codelibs.elasticsearch.minhash.index.analysis;
+package io.sherlok.sherlastic.index.analysis;
 
 import org.apache.lucene.analysis.TokenStream;
 import org.codelibs.minhash.MinHash;

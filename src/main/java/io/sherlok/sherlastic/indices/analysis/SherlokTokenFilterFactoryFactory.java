@@ -1,14 +1,14 @@
-package org.codelibs.elasticsearch.minhash.indices.analysis;
+package io.sherlok.sherlastic.indices.analysis;
 
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.index.analysis.PreBuiltTokenFilterFactoryFactory;
 import org.elasticsearch.index.analysis.TokenFilterFactory;
 
-public class MinHashTokenFilterFactoryFactory extends
+public class SherlokTokenFilterFactoryFactory extends
         PreBuiltTokenFilterFactoryFactory {
     private final TokenFilterFactory tokenFilterFactory;
 
-    public MinHashTokenFilterFactoryFactory(
+    public SherlokTokenFilterFactoryFactory(
             final TokenFilterFactory tokenFilterFactory) {
         super(tokenFilterFactory);
         this.tokenFilterFactory = tokenFilterFactory;

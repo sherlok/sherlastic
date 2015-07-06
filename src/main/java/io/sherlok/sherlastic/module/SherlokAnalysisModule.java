@@ -1,6 +1,7 @@
-package org.codelibs.elasticsearch.minhash.module;
+package io.sherlok.sherlastic.module;
 
-import org.codelibs.elasticsearch.minhash.indices.analysis.SherlokIndicesAnalysis;
+import io.sherlok.sherlastic.indices.analysis.SherlokIndicesAnalysis;
+
 import org.elasticsearch.common.inject.AbstractModule;
 
 public class SherlokAnalysisModule extends AbstractModule {

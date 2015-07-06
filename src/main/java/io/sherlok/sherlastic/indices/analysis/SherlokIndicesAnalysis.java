@@ -1,4 +1,4 @@
-package org.codelibs.elasticsearch.minhash.indices.analysis;
+package io.sherlok.sherlastic.indices.analysis;
 
 import org.apache.lucene.analysis.TokenStream;
 import org.codelibs.minhash.MinHash;
@@ -16,7 +16,7 @@ public class SherlokIndicesAnalysis extends AbstractComponent {
         super(settings);
 
         indicesAnalysisService.tokenFilterFactories().put("sherlok",
-                new MinHashTokenFilterFactoryFactory(new TokenFilterFactory() {
+                new SherlokTokenFilterFactoryFactory(new TokenFilterFactory() {
                     @Override
                     public String name() {
                         return "sherlok";
