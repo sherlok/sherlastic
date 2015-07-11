@@ -1,0 +1,8 @@
+language: java
+
+jdk:
+  - oraclejdk7
+
+notifications:
+  email:
+  - renaud.richardet@gmail.ch
