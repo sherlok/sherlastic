@@ -27,9 +27,8 @@ public class SherlokTokenFilterFactory extends AbstractTokenFilterFactory {
         hashBit = settings.getAsInt("bit", 1);
         final int numOfHash = settings.getAsInt("size", 128);
         final int seed = settings.getAsInt("seed", 0);
-        
-        
-        //indexSettings.get(setting) //FIXME
+
+        // indexSettings.get(setting) //FIXME
 
         hashFunctions = MinHash.createHashFunctions(seed, numOfHash);
 
