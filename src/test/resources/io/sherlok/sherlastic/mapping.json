@@ -1,0 +1,35 @@
+{
+    "test_type": {
+        "properties": {
+            "bits": {
+                "store": true,
+                "type": "string"
+            },
+            "id": {
+                "index": "not_analyzed",
+                "type": "string"
+            },
+            "minhash_value1": {
+                "copy_bits_to": "bits",
+                "minhash_analyzer": "minhash_analyzer1",
+                "type": "sherlok"
+            },
+            "minhash_value2": {
+                "minhash_analyzer": "minhash_analyzer2",
+                "type": "sherlok"
+            },
+            "minhash_value3": {
+                "minhash_analyzer": "minhash_analyzer3",
+                "type": "sherlok"
+            },
+            "msg": {
+                "copy_to": [
+                    "minhash_value1",
+                    "minhash_value2",
+                    "minhash_value3"
+                ],
+                "type": "string"
+            }
+        }
+    }
+}

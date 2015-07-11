@@ -10,6 +10,7 @@ import org.elasticsearch.index.analysis.TokenFilterFactory;
 import org.elasticsearch.indices.analysis.IndicesAnalysisService;
 
 public class SherlokIndicesAnalysis extends AbstractComponent {
+    
     @Inject
     public SherlokIndicesAnalysis(final Settings settings,
             final IndicesAnalysisService indicesAnalysisService) {
@@ -25,7 +26,7 @@ public class SherlokIndicesAnalysis extends AbstractComponent {
                     @Override
                     public TokenStream create(final TokenStream tokenStream) {
                         return new MinHashTokenFilter(tokenStream, MinHash
-                                .createHashFunctions(0, 128), 1);
+                                .createHashFunctions(0, 128), 1); //FIXME
                     }
                 }));
     }

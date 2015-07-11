@@ -2,11 +2,13 @@ package io.sherlok.sherlastic;
 
 import static org.codelibs.elasticsearch.runner.ElasticsearchClusterRunner.newConfigs;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.io.IOUtils;
 import org.codelibs.elasticsearch.runner.ElasticsearchClusterRunner;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexResponse;
@@ -14,8 +16,6 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.common.bytes.BytesArray;
 import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.ImmutableSettings.Builder;
-import org.elasticsearch.common.xcontent.XContentBuilder;
-import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.get.GetField;
 import org.junit.Assert;
 
@@ -32,8 +32,9 @@ public class SherlokPluginTest extends TestCase {
             @Override
             public void build(final int number, final Builder settingsBuilder) {
             }
-        }).build(newConfigs().ramIndexStore().numOfNode(1)
-                .clusterName(UUID.randomUUID().toString()));
+        }).build(
+                newConfigs().ramIndexStore().numOfNode(1)
+                        .clusterName(UUID.randomUUID().toString()));
 
         // wait for yellow status
         runner.ensureYellow();
@@ -47,6 +48,11 @@ public class SherlokPluginTest extends TestCase {
         runner.clean();
     }
 
+    public static String getContent(String name) throws IOException {
+        return IOUtils.toString(
+                SherlokPluginTest.class.getResourceAsStream(name), "UTF-8");
+    }
+
     public void test_runEs() throws Exception {
 
         final String index = "test_index";
@@ -54,67 +60,13 @@ public class SherlokPluginTest extends TestCase {
 
         {
             // create an index
-            final String indexSettings = "{\"index\":{\"analysis\":{\"analyzer\":{"
-                    + "\"minhash_analyzer1\":{\"type\":\"custom\",\"tokenizer\":\"standard\",\"filter\":[\"sherlok\"]},"
-                    + "\"minhash_analyzer2\":{\"type\":\"custom\",\"tokenizer\":\"standard\",\"filter\":[\"my_minhashfilter1\"]},"
-                    + "\"minhash_analyzer3\":{\"type\":\"custom\",\"tokenizer\":\"standard\",\"filter\":[\"my_minhashfilter2\"]}"
-                    + "},\"filter\":{"
-                    + "\"my_minhashfilter1\":{\"type\":\"sherlok\",\"seed\":1000},"
-                    + "\"my_minhashfilter2\":{\"type\":\"sherlok\",\"bit\":2,\"size\":32,\"seed\":1000}"
-                    + "}}}}";
+            final String indexSettings = getContent("index_settings.json");
             runner.createIndex(index, ImmutableSettings.builder()
                     .loadFromSource(indexSettings).build());
             runner.ensureYellow(index);
-
-            // create a mapping
-            final XContentBuilder mappingBuilder = XContentFactory
-                    .jsonBuilder()//
-                    .startObject()//
-                    .startObject(type)//
-                    .startObject("properties")//
-
-                    // id
-                    .startObject("id")//
-                    .field("type", "string")//
-                    .field("index", "not_analyzed")//
-                    .endObject()//
-
-                    // msg
-                    .startObject("msg")//
-                    .field("type", "string")//
-                    .field("copy_to", "minhash_value1", "minhash_value2",
-                            "minhash_value3")//
-                    .endObject()//
-
-                    // bits
-                    .startObject("bits")//
-                    .field("type", "string")//
-                    .field("store", true)//
-                    .endObject()//
-
-                    // minhash
-                    .startObject("minhash_value1")//
-                    .field("type", "sherlok")//
-                    .field("minhash_analyzer", "minhash_analyzer1")//
-                    .field("copy_bits_to", "bits")//
-                    .endObject()//
-
-                    // minhash
-                    .startObject("minhash_value2")//
-                    .field("type", "sherlok")//
-                    .field("minhash_analyzer", "minhash_analyzer2")//
-                    .endObject()//
-
-                    // minhash
-                    .startObject("minhash_value3")//
-                    .field("type", "sherlok")//
-                    .field("minhash_analyzer", "minhash_analyzer3")//
-                    .endObject()//
-
-                    .endObject()//
-                    .endObject()//
-                    .endObject();
-            runner.createMapping(index, type, mappingBuilder);
+            // mapping
+            String mapping = getContent("mapping.json");
+            runner.createMapping(index, type, mapping);
         }
 
         if (!runner.indexExists(index)) {

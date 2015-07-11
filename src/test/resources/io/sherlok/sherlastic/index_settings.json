@@ -1,0 +1,41 @@
+{
+    "index": {
+        "analysis": {
+            "analyzer": {
+                "minhash_analyzer1": {
+                    "filter": [
+                        "sherlok"
+                    ],
+                    "tokenizer": "standard",
+                    "type": "custom"
+                },
+                "minhash_analyzer2": {
+                    "filter": [
+                        "my_minhashfilter1"
+                    ],
+                    "tokenizer": "standard",
+                    "type": "custom"
+                },
+                "minhash_analyzer3": {
+                    "filter": [
+                        "my_minhashfilter2"
+                    ],
+                    "tokenizer": "standard",
+                    "type": "custom"
+                }
+            },
+            "filter": {
+                "my_minhashfilter1": {
+                    "seed": 1000,
+                    "type": "sherlok"
+                },
+                "my_minhashfilter2": {
+                    "bit": 2,
+                    "seed": 1000,
+                    "size": 32,
+                    "type": "sherlok"
+                }
+            }
+        }
+    }
+}
